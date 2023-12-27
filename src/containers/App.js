@@ -3,6 +3,7 @@ import CardList from '../components/CardList';
 import SearchBox from '../components/SearchBox';
 import './App.css';
 import Scroll from '../components/Scroll';
+import ErrorBoundry from '../components/ErrorBoundry';
 
 class App extends Component{
 	constructor() {
@@ -19,7 +20,7 @@ class App extends Component{
 		.then(users => this.setState({robots: users}));	
 	}
 
-    //this is not an inherent fucntion thats why we have to use this arrow function
+    //this is not an inherent function thats why we have to use this arrow function
 	onSearchChange = (event) => {
 		this.setState({searchfield: event.target.value})
 	}
@@ -37,7 +38,9 @@ class App extends Component{
 				<h1 className='f1'>RoboFriends</h1>
 				<SearchBox searchChange={this.onSearchChange}/>
 				<Scroll>
-					<CardList robots={filteredRobots}/>
+					<ErrorBoundry>
+						<CardList robots={filteredRobots}/>
+					</ErrorBoundry>
 				</Scroll>
 			</div>
 		    );
